@@ -31,6 +31,14 @@ export const createTransaction = async (req, res) => {
   }
 };
 
+// export const redeemTransaction = async({params},res) => {
+//   try {
+//     const 
+//   } catch (error) {
+//     res.status(401).json(error)
+//   }
+// }
+
 //////!  GET TRAN  !//////
 
 export const getTransaction = async (req, res) => {

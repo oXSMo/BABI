@@ -28,8 +28,8 @@ export const Scanner = () => {
 
   return (
     <StartScan
-      handler={() => {
-        navigate("684b8a523eddfb8d251a8178");
+      handler={(result: any) => {
+        navigate(result);
       }}
     />
   );
@@ -56,7 +56,7 @@ export const AddBalance = () => {
       <article className="space-y-4 md:w-96 w-full  h-full grid  [&_h1]:text-xl [&_h1]:font-semibold   [&_h2]:text-black/50 [&_h3]:justify-self-end">
         <aside className=" card space-y-2 h-fit">
           <h1 className="tracking-wide !mb-4">Client Informations</h1>
-          <div className="grid grid-cols-2 gap-y-3 ">
+          <div className="grid grid-cols-2 gap-y-3 [&_h3]:line-clamp-1">
             <h2>Client Id :</h2>
             <h3>{client._id}</h3>
             <h2>Full Name :</h2>

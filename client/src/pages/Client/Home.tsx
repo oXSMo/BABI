@@ -93,7 +93,7 @@ function Home() {
         </div>
 
         <p className="font-medium mb-4 cursor-pointer mt-2">
-          User Id: {profile._id}
+          User Id: {blur ? "***************************" : profile._id}
         </p>
 
         <button

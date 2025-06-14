@@ -12,9 +12,11 @@ function Transactions() {
         </aside>
 
         <article
-          className={`space-y-3 grid  ${loading && "grid-rows-[auto_1fr]"}`}
+          className={`space-y-3 grid overflow-x-clip  ${
+            loading && "grid-rows-[auto_1fr]"
+          }`}
         >
-          <aside className="border-b border-gray-300 h-9 font-medium  border-opacity-50 grid grid-cols-[3fr_2fr_2fr]">
+          <aside className="border-b border-gray-300 h-9 font-medium gap-2  border-opacity-50 grid grid-cols-[3fr_2fr_2fr]">
             <h1 className="pl-2">Date</h1>
             <h2 className="">Description</h2>
             <h3 className="justify-self-end pr-2">Amount</h3>
@@ -26,7 +28,7 @@ function Transactions() {
           ) : (
             transactions.map((t, i) => (
               <aside
-                className={` border-gray-300 h-9  border-opacity-50 grid grid-cols-[3fr_2fr_2fr] ${
+                className={` border-gray-300 gap-2  border-opacity-50 grid grid-cols-[3fr_2fr_2fr] ${
                   i !== 4 && "border-b"
                 }`}
               >
@@ -43,7 +45,7 @@ function Transactions() {
                   className="justify-self-end pr-2"
                 >
                   {t.balance > 0 ? "+" : ""}
-                  {t.balance} DZD
+                  {t.balance} <span className="text-xs">DZD</span>
                 </h3>
               </aside>
             ))

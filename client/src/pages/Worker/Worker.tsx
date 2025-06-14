@@ -21,7 +21,7 @@ function Worker() {
             icon: <MdQrCode2 />,
             text: "Scan a clien't QR code to redeem a ticket from thei credit balance  ",
             button: "Go To Redeem",
-            to: "",
+            to: "redeem",
           },
           {
             title: "Add Sales / Credit",
@@ -31,7 +31,7 @@ function Worker() {
             to: "addsales",
           },
         ].map((nav) => (
-          <WorkerNav {...nav} />
+          <WorkerNav key={nav.title} {...nav} />
         ))}
       </section>
     </main>
