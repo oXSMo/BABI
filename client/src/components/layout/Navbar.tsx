@@ -8,13 +8,13 @@ import {
   MdQrCode2,
 } from "react-icons/md";
 import { profileSlice } from "../../store/signSlice";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { LuBadgeDollarSign, LuScanSearch } from "react-icons/lu";
 
 function Navbar() {
   const { profile } = profileSlice();
   const [open, setOpen] = useState<boolean>(false);
-
+  const { pathname } = useLocation();
   const ref = useRef<null | HTMLDivElement>(null);
   useEffect(() => {
     let handle = (e: any) => {
@@ -27,6 +27,10 @@ function Navbar() {
       document.removeEventListener("mousedown", handle);
     };
   });
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   let navs = [
     { to: "/", icon: <MdHome />, title: "Home" },
