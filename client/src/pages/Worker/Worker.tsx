@@ -12,23 +12,23 @@ function Worker() {
           {
             title: "Controle Client",
             icon: <LuScanSearch />,
+            to: "contole",
             text: "Scan a clien't QR code to view their information and last ticket status ",
             button: "Go To Controle",
-            to: "contole",
           },
           {
             title: "Redeem Ticket",
             icon: <MdQrCode2 />,
+            to: "redeem",
             text: "Scan a clien't QR code to redeem a ticket from thei credit balance  ",
             button: "Go To Redeem",
-            to: "redeem",
           },
           {
             title: "Add Sales / Credit",
             icon: <LuBadgeDollarSign />,
+            to: "addsales",
             text: "Scan a clien't QR code to add credit to their account or correct a previous transaction ",
             button: "Go To Add Sales",
-            to: "addsales",
           },
         ].map((nav) => (
           <WorkerNav key={nav.title} {...nav} />

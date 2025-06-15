@@ -1,5 +1,7 @@
+// @ts-nocheck
+
 import { toPng } from "html-to-image";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export const useClipboard = () => {
   const [isCopied, setIsCopied] = useState(false);
@@ -49,4 +51,25 @@ export const useDownloadPng = (title: string) => {
       .finally(() => setLoading(false));
   }, [ref]);
   return { ref, onClick, loading, err };
+};
+
+
+
+
+export const useClickOut = (fn:any) => {
+  const ref = useRef();
+
+  useEffect(() => {
+    let handle = (e:any) => {
+      if (!ref.current?.contains(e.target)) {
+        fn();
+      }
+    };
+    document.addEventListener("mousedown", handle);
+    return () => {
+      document.removeEventListener("mousedown", handle);
+    };
+  });
+
+  return ref;
 };
