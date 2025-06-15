@@ -1,6 +1,6 @@
 import Transaction from "../models/transaction.module.js";
 import User from "../models/user.module.js";
-
+import Passenger from "../models/passengers.module.js";
 //////!  CREATE TRAN  !//////
 
 export const createTransaction = async (req, res) => {
@@ -33,7 +33,7 @@ export const createTransaction = async (req, res) => {
 
 // export const redeemTransaction = async({params},res) => {
 //   try {
-//     const 
+//     const
 //   } catch (error) {
 //     res.status(401).json(error)
 //   }
@@ -48,7 +48,6 @@ export const getTransaction = async (req, res) => {
       { path: "client", select: "email fullName phoneNumber " },
       { path: "worker", select: "email fullName phoneNumber " },
     ]);
-
     res.status(201).json(transaction);
   } catch (error) {
     res.status(404).json(error);
@@ -66,7 +65,8 @@ export const getMyTransactions = async (req, res) => {
         { path: "client", select: "email fullName phoneNumber " },
         { path: "worker", select: "email fullName phoneNumber " },
       ])
-      .select("-__v");
+      .select("-__v")
+      .sort({ createdAt: -1 });
 
     res.status(201).json(transactions);
   } catch (error) {
@@ -103,5 +103,27 @@ export const getAllTransactions = async ({ query }, res) => {
     res.status(201).json(transactions);
   } catch (error) {
     res.status(401).json(error);
+  }
+};
+
+// Passenger
+
+export const createManyPassenger = async ({ body }, res) => {
+  try {
+    if (!body || !body.length)
+      return res.status(404).json("Please Enter An Array");
+
+    if (
+      !body.every((obj) => {
+        return ["createdAt", "in", "out", "inFrame"].every((key) =>
+          obj.hasOwnProperty(key)
+        );
+      })
+    )
+      return res.status(403).json("Please Enter Valid Data");
+    const passenger = await Passenger.insertMany(body);
+    res.status(201).json(passenger);
+  } catch (error) {
+    res.status(401).json({ error });
   }
 };
