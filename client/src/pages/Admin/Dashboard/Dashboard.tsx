@@ -1,8 +1,11 @@
-import { MdCreditCard,  MdGroups2, MdTimeline } from "react-icons/md";
+import { MdCreditCard, MdGroups2, MdTimeline } from "react-icons/md";
+import ColumnChartDarkMode from "./SalesChart";
+import PieChart from "./UserDistripbutionPie";
+import PassengersChart from "./PassengersChart";
 
 function Dashboard() {
   return (
-    <main className="h-full grid grid-rows-[auto_auto_1fr]">
+    <main className="h-full grid grid-rows-[auto_auto_1fr] fadeIn">
       <h1 className="md:text-3xl text-xl font-bold   ">Admin Dashboard</h1>
 
       <section className="grid md:grid-cols-3 grid-cols-1 gap-4 my-6">
@@ -31,13 +34,22 @@ function Dashboard() {
       </section>
 
       <section className="grid lg:grid-cols-2 gap-4 h-full">
-        <aside className="Border p-3 h-full ">
-            <h3>Monthly Sales</h3>
-            <h4>Total credit sales over the last 6 months</h4>
+        <aside className="Border p-3 h-full overflow-x-hidden !pb-0">
+          <h3>Monthly Sales</h3>
+          <h4>Total credit sales over the last 6 months</h4>
+          <ColumnChartDarkMode />
         </aside>
-        <aside className="Border p-3 h-full ">
-            <h3>User Distripbution</h3>
-            <h4>breakdown of user roles in the system.</h4>
+        <aside className="Border p-3 h-full overflow-x-hidden">
+          <h3>User Distripbution</h3>
+          <h4>breakdown of user roles in the system.</h4>
+          <div className="py-5">
+            <PieChart />
+          </div>
+        </aside>
+        <aside className="col-span-2 Border p-3 h-full overflow-x-hidden">
+          <h3>Passengers Counting</h3>
+          <h4>Analytics of passengers.</h4>
+          <PassengersChart />
         </aside>
       </section>
     </main>

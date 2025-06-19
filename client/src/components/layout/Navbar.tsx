@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { BsCreditCard } from "react-icons/bs";
 import {
+  MdAdminPanelSettings,
   MdBadge,
   MdHistory,
   MdHome,
@@ -16,6 +17,7 @@ function Navbar() {
   const [open, setOpen] = useState<boolean>(false);
   const { pathname } = useLocation();
   const ref = useRef<null | HTMLDivElement>(null);
+  
   useEffect(() => {
     let handle = (e: any) => {
       if (!ref.current?.contains(e.target)) {
@@ -54,6 +56,12 @@ function Navbar() {
       },
     ];
 
+  if (profile.isAdmin)
+    navs = [
+      ...navs,
+      { to: "/admin", icon: <MdAdminPanelSettings />, title: "Admin" },
+    ];
+
   return (
     <header className="h-16 border-b-2 border-sec border-opacity-40 w-full ">
       <article className="flex justify-between items-center h-full max-w-7xl mx-auto w-11/12">
@@ -90,6 +98,8 @@ function Navbar() {
                   {title}
                 </NavLink>
               ))}
+
+              
             </div>
           </div>
         </aside>

@@ -53,14 +53,11 @@ export const useDownloadPng = (title: string) => {
   return { ref, onClick, loading, err };
 };
 
-
-
-
-export const useClickOut = (fn:any) => {
+export const useClickOut = (fn: any) => {
   const ref = useRef();
 
   useEffect(() => {
-    let handle = (e:any) => {
+    let handle = (e: any) => {
       if (!ref.current?.contains(e.target)) {
         fn();
       }
@@ -72,4 +69,21 @@ export const useClickOut = (fn:any) => {
   });
 
   return ref;
+};
+
+export const useScreenWidth = () => {
+  const [width, setwidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setwidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [width]);
+  return width;
 };

@@ -43,7 +43,7 @@ function StartScan({ handler }: any) {
   };
 
   const StopScanner = () => {
-    if (!html5QrcodeRef.current) return;
+    if (!isScanning) return;
 
     html5QrcodeRef.current
       .stop()

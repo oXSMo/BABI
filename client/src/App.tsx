@@ -11,12 +11,14 @@ import Worker from "./pages/Worker/Worker";
 import AddSales, { AddBalance, Scanner } from "./pages/Worker/AddSales";
 import { useEffect } from "react";
 import AdminRoutes from "./components/routes/Admin.route";
-import Dashboard from "./pages/Admin/Dashboard";
+import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import Controle, {
   ControleClientInfo,
   ControleScanner,
 } from "./pages/Worker/Controle";
 import RedeemTicket, { RedeemScanner } from "./pages/Worker/RedeemTicket";
+import UserManage from "./pages/Admin/UserManage/UserManage";
+import AllTransactions from "./pages/Admin/AllTransactions/AllTransactions";
 
 function App() {
   const { pathname } = useLocation();
@@ -56,6 +58,9 @@ function App() {
         </Route>
         <Route path="admin" element={<AdminRoutes />}>
           <Route index element={<Dashboard />} />
+          <Route path="users" element={<UserManage />} />
+
+          <Route path="transactions" element={<AllTransactions />} />
           <Route path="*" element={<div></div>} />
         </Route>
       </Routes>

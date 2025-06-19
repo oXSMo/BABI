@@ -6,6 +6,7 @@ import path from "path";
 import cors from "cors";
 import userRoutes from "./routes/user.routes.js";
 import transactionRoutes from "./routes/transaction.routes.js";
+import adminRoutes from "./routes/dashboard.routes.js";
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", userRoutes);
 app.use("/api/transaction", transactionRoutes);
+app.use("/api/dashboard/", adminRoutes);
 
 app.use(express.static(path.join(__dirname, "/client/dist")));
 
