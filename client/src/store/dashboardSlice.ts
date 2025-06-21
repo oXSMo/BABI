@@ -7,9 +7,32 @@ type TPassenger = {
   inFrame: number;
 };
 
+export type TUsers = {
+  admin: number;
+  normal: number;
+  worker: number;
+};
+
+type TInfo = {
+  transactions: number;
+  creditAdded: number;
+  totalUsers: number;
+};
+
+type TSales = {
+  _id: string;
+  totalPrice: number;
+};
+
 interface TPassengerSlice {
   passengers: TPassenger[];
   setPassenger: any;
+  info: TInfo;
+  setInfo: any;
+  users: TUsers;
+  setUsers: any;
+  sales: TSales[];
+  setSales: any;
 }
 
 export const usePassengerSlice = create<TPassengerSlice>((set) => ({
@@ -17,5 +40,20 @@ export const usePassengerSlice = create<TPassengerSlice>((set) => ({
   setPassenger: (fn: any) =>
     set((state: any) => ({
       passengers: typeof fn === "function" ? fn(state.passengers) : fn,
+    })),
+  info: { transactions: 0, creditAdded: 0, totalUsers: 0 },
+  setInfo: (fn: any) =>
+    set((state: any) => ({
+      info: typeof fn === "function" ? fn(state.info) : fn,
+    })),
+  users: { admin: 0, normal: 0, worker: 0 },
+  setUsers: (fn: any) =>
+    set((state: any) => ({
+      users: typeof fn === "function" ? fn(state.users) : fn,
+    })),
+  sales: [],
+  setSales: (fn: any) =>
+    set((state: any) => ({
+      sales: typeof fn === "function" ? fn(state.sales) : fn,
     })),
 }));

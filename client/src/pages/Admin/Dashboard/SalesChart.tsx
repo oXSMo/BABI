@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
+import { usePassengerSlice } from "../../../store/dashboardSlice";
+import moment from "moment";
 
 interface ChartData {
   categories: string[];
   values: number[];
 }
 
-
 const ColumnChartDarkMode: React.FC = () => {
+  const { sales } = usePassengerSlice();
+  console.log(sales);
+
   const [darkMode] = useState(true);
   const [chartData, setChartData] = useState<ChartData>({
     categories: [],
@@ -17,10 +21,10 @@ const ColumnChartDarkMode: React.FC = () => {
   // Simulated data loading
   useEffect(() => {
     setChartData({
-      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-      values: [42, 55, 48, 67, 53, 72],
+      categories: sales.map((s) => moment(s._id).format("MMM")),
+      values: sales.map((s) => s.totalPrice * -1),
     });
-  }, []);
+  }, [sales]);
 
   // Chart configuration
   const chartOptions: ApexCharts.ApexOptions = {
@@ -88,9 +92,17 @@ const ColumnChartDarkMode: React.FC = () => {
     },
   ];
 
-  return (
-    <Chart options={chartOptions} series={series} type="bar" height={370} />
-  );
+  if (sales.length)
+    return (
+      <Chart options={chartOptions} series={series} type="bar" height={370} />
+    );
+  else {
+    return (
+      <div className="w-full h-full grid place-content-center">
+        <div className="loader w-12 h-12" />
+      </div>
+    );
+  }
 };
 
 export default ColumnChartDarkMode;

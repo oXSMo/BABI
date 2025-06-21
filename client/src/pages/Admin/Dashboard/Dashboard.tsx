@@ -2,8 +2,11 @@ import { MdCreditCard, MdGroups2, MdTimeline } from "react-icons/md";
 import ColumnChartDarkMode from "./SalesChart";
 import PieChart from "./UserDistripbutionPie";
 import PassengersChart from "./PassengersChart";
+import { useGetPassengers } from "../../../hooks/useDashboard";
 
 function Dashboard() {
+  const { info } = useGetPassengers();
+
   return (
     <main className="h-full grid grid-rows-[auto_auto_1fr] fadeIn">
       <h1 className="md:text-3xl text-xl font-bold   ">Admin Dashboard</h1>
@@ -12,19 +15,19 @@ function Dashboard() {
         {[
           {
             title: "Total Users",
-            count: "150",
+            count: `${info.totalUsers} users`,
             description: "Clients,Workers,and Admins",
             icon: <MdGroups2 />,
           },
           {
             title: "Total Credit Added",
-            count: "7500 DZD",
+            count: info.creditAdded + " DZD",
             description: "Access all credit addictions",
             icon: <MdCreditCard />,
           },
           {
             title: "System Activity",
-            count: "High",
+            count: info.transactions + " Transaction",
             description: "Based on recent transactions",
             icon: <MdTimeline />,
           },
@@ -33,13 +36,13 @@ function Dashboard() {
         ))}
       </section>
 
-      <section className="grid lg:grid-cols-2 gap-4 h-full">
-        <aside className="Border p-3 h-full overflow-x-hidden !pb-0">
+      <section className="grid lg:grid-cols-2 grid-cols-1 gap-4 h-full">
+        <aside className="Border p-3 h-full overflow-hidden !pb-0">
           <h3>Monthly Sales</h3>
           <h4>Total credit sales over the last 6 months</h4>
           <ColumnChartDarkMode />
         </aside>
-        <aside className="Border p-3 h-full overflow-x-hidden">
+        <aside className="Border p-3 h-full overflow-x-hidden min-h-[455px]">
           <h3>User Distripbution</h3>
           <h4>breakdown of user roles in the system.</h4>
           <div className="py-5">

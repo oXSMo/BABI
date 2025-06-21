@@ -1,10 +1,10 @@
 import Chart from "react-apexcharts";
-import { useGetPassengers } from "../../../hooks/useDashboard";
 import { useEffect, useState } from "react";
 import moment from "moment";
+import { usePassengerSlice } from "../../../store/dashboardSlice";
 
 function PassengersChart() {
-  const { passengers } = useGetPassengers();
+  const { passengers } = usePassengerSlice();
   const [options, setOptions] = useState<ApexCharts.ApexOptions>();
 
   console.log({ options, passengers });
@@ -98,7 +98,7 @@ function PassengersChart() {
   else
     return (
       <div className="w-full h-96 grid place-content-center">
-        <div className="loader w-6 h-6" />
+        <div className="loader w-16 h-16" />
       </div>
     );
 }

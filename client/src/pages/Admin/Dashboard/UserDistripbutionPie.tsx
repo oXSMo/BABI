@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
+import { usePassengerSlice } from "../../../store/dashboardSlice";
+import { type TUsers } from "../../../store/dashboardSlice";
 
 const PieChartWithBottomLegend: React.FC = () => {
-  // Chart configuration
+  const { users } = usePassengerSlice();
+
+  useEffect(() => {}, [users]);
+
   const chartOptions: ApexCharts.ApexOptions = {
     chart: {
       type: "pie",
       background: "transparent",
     },
-    labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+    labels: ["Normal", "Worker", "Admin"],
     legend: {
       position: "bottom",
 
@@ -31,7 +36,7 @@ const PieChartWithBottomLegend: React.FC = () => {
     dataLabels: {
       enabled: false,
     },
-    colors: ["#3B82F6", "#10B981", "#F59E0B", "#EF4444", "#8B5CF6"],
+    colors: ["#10B981", "#3B82F6", "#EF4444", "#F59E0B", , "#8B5CF6"],
     responsive: [
       {
         breakpoint: 640,
@@ -48,17 +53,19 @@ const PieChartWithBottomLegend: React.FC = () => {
     ],
   };
 
-  const series = [44, 55, 13, 43, 22];
+  const series = [users.normal, users.worker, users.admin];
+  console.log();
 
-  return (
-    <Chart
-      options={chartOptions}
-      series={series}
-      type="pie"
-      width="100%"
-      height={320}
-    />
-  );
+  if (users.normal)
+    return (
+      <Chart
+        options={chartOptions}
+        series={series}
+        type="pie"
+        width="100%"
+        height={320}
+      />
+    );
 };
 
 export default PieChartWithBottomLegend;

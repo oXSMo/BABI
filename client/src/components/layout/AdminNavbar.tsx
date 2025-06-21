@@ -21,7 +21,7 @@ function AdminNavbar({
   useEffect(() => {
     let handle = (e: any) => {
       if (!ref.current?.contains(e.target)) {
-        setOpen(false);
+        setNavs(false);
       }
     };
     document.addEventListener("mousedown", handle);
