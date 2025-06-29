@@ -9,7 +9,7 @@ import {
   MdQrCode2,
 } from "react-icons/md";
 import { profileSlice } from "../../store/signSlice";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { LuBadgeDollarSign, LuScanSearch } from "react-icons/lu";
 
 function Navbar() {
@@ -17,7 +17,7 @@ function Navbar() {
   const [open, setOpen] = useState<boolean>(false);
   const { pathname } = useLocation();
   const ref = useRef<null | HTMLDivElement>(null);
-  
+
   useEffect(() => {
     let handle = (e: any) => {
       if (!ref.current?.contains(e.target)) {
@@ -65,14 +65,16 @@ function Navbar() {
   return (
     <header className="h-16 border-b-2 border-sec border-opacity-40 w-full ">
       <article className="flex justify-between items-center h-full max-w-7xl mx-auto w-11/12">
-        <aside className="flex gap-2 items-center text-2xl text-textPri font-bold tracking-wide">
+        <Link to="/" className="flex gap-2 items-center text-2xl text-textPri font-bold tracking-wide">
           <BsCreditCard className="text-sec " /> TramCreditAlgeria
-        </aside>
+        </Link>
 
         <aside className="relative">
           <div
             onClick={() => setOpen(true)}
-            className="text-sec text-3xl w-10 h-10 grid place-content-center rounded-full  hover:bg-black/10 cursor-pointer"
+            className={`text-sec text-3xl w-10 h-10 grid place-content-center rounded-full  hover:bg-black/10 cursor-pointer ${
+              open && "bg-black/10"
+            }`}
           >
             <MdPerson className="" />
           </div>
@@ -98,8 +100,6 @@ function Navbar() {
                   {title}
                 </NavLink>
               ))}
-
-              
             </div>
           </div>
         </aside>

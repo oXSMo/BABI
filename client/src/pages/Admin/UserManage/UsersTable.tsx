@@ -1,37 +1,51 @@
 import moment from "moment";
+import { useGetUsers } from "../../../hooks/useDashboard";
+import { MdPersonSearch } from "react-icons/md";
 
 function UsersTable() {
+  const { loading, users } = useGetUsers();
   return (
-    <main className="overflow-auto [&::-webkit-scrollbar]:w-0">
-      <table className=" min-w-full overflow-auto">
-        <thead className="[&_th]:text-start [&_th]:font-normal [&_th]:p-2 [&_th]:py-3 text-white/50">
-          <tr className="border-b border-white/20">
-            <th className="min-w-44">Full Name</th>
-            <th className="min-w-52">Email</th>
-            <th className="min-w-28">Role</th>
-            <th className="min-w-28">Status</th>
-            <th className="min-w-32">Member Since </th>
-            <th className="min-w-22">Actions</th>
-          </tr>
-        </thead>
-
-        <tbody className="[&_td]:text-start text-[15px]  [&_td]:p-2 [&_td]:py-3.5">
-          {data?.map((user, i) => (
-            <tr
-              className={`  border-white/10 ${
-                i !== data.length - 1 && "border-b"
-              }`}
-            >
-              <td>{user.fullName}</td>
-              <td>{user.email}</td>
-              <td>{user.role}</td>
-              <td>{user.status}</td>
-              <td>{moment(user.createdAt).fromNow()}</td>
-              <td>idk</td>
+    <main className="overflow-auto w-full h-full [&::-webkit-scrollbar]:w-0">
+      {users.length ? (
+        <table className=" min-w-full overflow-auto">
+          <thead className="[&_th]:text-start [&_th]:font-normal [&_th]:p-2 [&_th]:py-3 text-white/50">
+            <tr className="border-b border-white/20">
+              <th className="min-w-44">Full Name</th>
+              <th className="min-w-52">Email</th>
+              <th className="min-w-28">Role</th>
+              <th className="min-w-28">Status</th>
+              <th className="min-w-32">Member Since </th>
+              <th className="min-w-22">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody className="[&_td]:text-start text-[15px]  [&_td]:p-2 [&_td]:py-3.5">
+            {users?.map((user, i) => (
+              <tr
+                className={`  border-white/10 ${
+                  i !== data.length - 1 && "border-b"
+                }`}
+              >
+                <td>{user.fullName}</td>
+                <td>{user.email}</td>
+                <td>{user.role}</td>
+                <td>{user.isVerified}</td>
+                <td>{moment(user.createdAt).fromNow()}</td>
+                <td>idk</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : loading ? (
+        <div className="w-full h-full grid place-content-center">
+          <div className="loader w-16 h-16" />
+        </div>
+      ) : (
+        <div className="w-full h-full grid place-content-center opacity-60 text-center">
+          <MdPersonSearch className="text-8xl mx-auto" />
+          <p className="text-xl tracking-wide">No Users Found</p>
+        </div>
+      )}
     </main>
   );
 }

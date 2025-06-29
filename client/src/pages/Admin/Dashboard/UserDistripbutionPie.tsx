@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Chart from "react-apexcharts";
 import { usePassengerSlice } from "../../../store/dashboardSlice";
-import { type TUsers } from "../../../store/dashboardSlice";
 
 const PieChartWithBottomLegend: React.FC = () => {
   const { users } = usePassengerSlice();
@@ -36,7 +35,7 @@ const PieChartWithBottomLegend: React.FC = () => {
     dataLabels: {
       enabled: false,
     },
-    colors: ["#10B981", "#3B82F6", "#EF4444", "#F59E0B", , "#8B5CF6"],
+    colors: ["#10B981", "#3B82F6", "#EF4444", "#F59E0B", "#8B5CF6"],
     responsive: [
       {
         breakpoint: 640,

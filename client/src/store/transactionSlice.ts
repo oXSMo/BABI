@@ -18,6 +18,8 @@ interface TTransaction {
 interface TTransactionSlice {
   transactions: TTransaction[];
   setTransaction: any;
+  userTransactions: TTransaction[];
+  setUserTransactions: any;
 }
 
 export const useTransactionSlice = create<TTransactionSlice>((set) => ({
@@ -25,5 +27,11 @@ export const useTransactionSlice = create<TTransactionSlice>((set) => ({
   setTransaction: (fn: any) =>
     set((state: any) => ({
       transactions: typeof fn === "function" ? fn(state.transactions) : fn,
+    })),
+  userTransactions: [],
+  setUserTransactions: (fn: any) =>
+    set((state: any) => ({
+      userTransactions:
+        typeof fn === "function" ? fn(state.userTransactions) : fn,
     })),
 }));

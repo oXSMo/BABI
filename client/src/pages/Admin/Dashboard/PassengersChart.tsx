@@ -45,9 +45,7 @@ function PassengersChart() {
         borderColor: "#00000555",
       },
       xaxis: {
-        categories: passengers?.map((p) =>
-          moment(p._id).format("MMM-DD, HH:mm")
-        ),
+        categories: passengers?.map((p) => moment(p._id).format("HH:mm")),
       },
 
       fill: {
@@ -66,8 +64,12 @@ function PassengersChart() {
             `$${value >= 1000 ? `${value / 1000}k` : value}`,
         },
         custom: function ({ series, dataPointIndex, w }) {
+          console.log({ series, dataPointIndex, w });
+
           return `<div class="min-w-48 bg-[#09090B]  Border  rounded-md p-4 py-3">
-        <p class="text-sm text-white  font-medium">Total Earned</p>
+        <div class="flex justify-between text-sm text-white  font-medium">
+        <p>Total Earned</p>
+        <p>${moment(passengers[dataPointIndex]._id).format("MMM-DD")}</p></div>
         ${series
           .map(
             (s: any, i: any) => `

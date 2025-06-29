@@ -36,9 +36,12 @@ export const useCreateTransaction = () => {
   const createTransaction = async (client: string, balance: number) => {
     try {
       setLoading(true);
-      const resp = await api.post("/api/transaction/create", { balance, client });
+      const resp = await api.post("/api/transaction/create", {
+        balance,
+        client,
+      });
       console.log(resp);
-      
+
       setErr(false);
     } catch (error) {
       setErr(true);
@@ -51,4 +54,31 @@ export const useCreateTransaction = () => {
   return { loading, err, createTransaction };
 };
 
+export const useGetUserTransactions = (
+  onMount: boolean = true,
+  _id: string = ""
+) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [err, setErr] = useState<boolean>(false);
+  const { setUserTransactions, userTransactions } = useTransactionSlice();
 
+  const getUserTransactions = async () => {
+    try {
+      setLoading(true);
+      const resp = await api.get(`/api/transaction/pay/${_id}`);
+      setUserTransactions(resp.data);
+      setErr(false);
+    } catch (error) {
+      setErr(true);
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (onMount) getUserTransactions();
+  }, []);
+
+  return { loading, err, getUserTransactions, userTransactions };
+};

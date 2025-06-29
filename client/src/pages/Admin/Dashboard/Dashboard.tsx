@@ -49,12 +49,12 @@ function Dashboard() {
             <PieChart />
           </div>
         </aside>
-        <aside className="col-span-2 Border p-3 h-full overflow-x-hidden">
-          <h3>Passengers Counting</h3>
-          <h4>Analytics of passengers.</h4>
-          <PassengersChart />
-        </aside>
       </section>
+      <aside className=" Border p-3 h-full overflow-x-hidden mt-4">
+        <h3>Passengers Counting</h3>
+        <h4>Analytics of passengers.</h4>
+        <PassengersChart />
+      </aside>
     </main>
   );
 }

@@ -6,6 +6,7 @@ import {
   MdCurrencyExchange,
   MdDashboard,
   MdGroup,
+  MdHome,
 } from "react-icons/md";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -82,6 +83,11 @@ function AdminNavbar({
                   to: "/admin/transactions",
                   icon: <MdCurrencyExchange />,
                   title: "All transactions",
+                },
+                {
+                  to: "/",
+                  icon: <MdHome />,
+                  title: "Home",
                 },
               ].map(({ to, icon, title }) => (
                 <NavLink

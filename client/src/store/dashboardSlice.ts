@@ -57,3 +57,53 @@ export const usePassengerSlice = create<TPassengerSlice>((set) => ({
       sales: typeof fn === "function" ? fn(state.sales) : fn,
     })),
 }));
+
+interface TUsersSlice {
+  users: {
+    _id: string;
+    isAdmin: boolean;
+    isVerified: boolean;
+    email: string;
+    fullName: string;
+    phoneNumber: string;
+    role: string;
+    balance: number;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+  setUsers: any;
+}
+
+export const useUsersSlice = create<TUsersSlice>((set) => ({
+  users: [],
+  setUsers: (fn: any) =>
+    set((state: any) => ({
+      users: typeof fn === "function" ? fn(state.users) : fn,
+    })),
+}));
+
+type TTransactionProfile = {
+  _id: string;
+  email: string;
+  phoneNumber?: string;
+  fullName: string;
+};
+
+interface TTransactionSlice {
+  transactions: {
+    _id: string;
+    balance: number;
+    worker: TTransactionProfile;
+    client: TTransactionProfile;
+    createdAt: string;
+  }[];
+  setTransactions: any;
+}
+
+export const useTransactionsSlice = create<TTransactionSlice>((set) => ({
+  transactions: [],
+  setTransactions: (fn: any) =>
+    set((state: any) => ({
+      transactions: typeof fn === "function" ? fn(state.transactions) : fn,
+    })),
+}));

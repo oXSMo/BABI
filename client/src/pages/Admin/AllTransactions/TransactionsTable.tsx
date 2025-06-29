@@ -1,46 +1,59 @@
+import moment from "moment";
+import { useGetTransactions } from "../../../hooks/useDashboard";
+
 function TransactionsTable() {
+  const { loading, transactions } = useGetTransactions();
+
   return (
-    <main className="overflow-auto [&::-webkit-scrollbar]:w-0 mt-2">
-      <table className=" min-w-full overflow-auto">
-        <thead className="[&_th]:text-start [&_th]:font-normal [&_th]:p-2 [&_th]:py-3 [&_th]:border-r [&_th]:border-white/20 text-white/50">
-          <tr className="border-b border-white/20">
-            <th className="w-20">Id</th>
-            <th className="min-w-44">Client</th>
-            <th className="min-w-52">Worker</th>
-            <th className="min-w-44">Balance</th>
-            <th className="min-w-28">CreatedAt</th>
+    <main className="overflow-auto w-full h-full [&::-webkit-scrollbar]:w-0 mt-2">
+      {transactions.length ? (
+        <table className=" min-w-full overflow-auto">
+          <thead className="[&_th]:text-start [&_th]:font-normal [&_th]:p-2 [&_th]:py-3 [&_th]:border-r [&_th]:border-white/20 text-white/50">
+            <tr className="border-b border-white/20">
+              <th className="w-20">Id</th>
+              <th className="min-w-44">Client</th>
+              <th className="min-w-52">Worker</th>
+              <th className="min-w-44">Balance</th>
+              <th className="min-w-28">CreatedAt</th>
 
-            <th className="min-w-22 !border-r-0">
-              <p className="text-center">Actions</p>
-            </th>
-          </tr>
-        </thead>
-
-        <tbody className="[&_td]:text-start text-[15px] [&_td]:border-r [&_td]:border-white/10  [&_td]:p-2 [&_td]:py-3.5">
-          {data?.map((user, i) => (
-            <tr
-              className={`  border-white/10 ${
-                i !== data.length - 1 && "border-b"
-              }`}
-            >
-              <td className="border-r border-white/10">
-                <p className="line-clamp-1">{user.id}</p>
-              </td>
-              <td>{user.client}</td>
-              <td>{user.worker}</td>
-              <td>
-                <h1 className="flex gap-1 items-end">
-                  {user.balance} <p className="text-xs mb-0.5">DZD</p>
-                </h1>
-              </td>
-              <td>{user.createdAt.replace("T", " ").replace("Z", "")}</td>
-              <td className="!border-r-0">
-                <p className="text-center">idk</p>
-              </td>
+              <th className="min-w-22 !border-r-0">
+                <p className="text-center">Actions</p>
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody className="[&_td]:text-start text-[15px] [&_td]:border-r [&_td]:border-white/10  [&_td]:p-2 [&_td]:py-3.5">
+            {transactions?.map((t, i) => (
+              <tr
+                className={`  border-white/10 ${
+                  i !== data.length - 1 && "border-b"
+                }`}
+              >
+                <td className="border-r border-white/10">
+                  <p className="line-clamp-1">{t._id}</p>
+                </td>
+                <td>{t.client.fullName}</td>
+                <td>{t.worker.fullName}</td>
+                <td>
+                  <h1 className="flex gap-1 items-end">
+                    {t.balance} <p className="text-xs mb-0.5">DZD</p>
+                  </h1>
+                </td>
+                <td>{moment(t.createdAt).fromNow()}</td>
+                <td className="!border-r-0">
+                  <p className="text-center"></p>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : loading ? (
+        <div className="w-full h-full grid place-content-center">
+          <div className="loader w-16 h-16" />
+        </div>
+      ) : (
+        <></>
+      )}
     </main>
   );
 }

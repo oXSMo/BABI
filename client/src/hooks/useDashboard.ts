@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { api } from "./api";
-import { usePassengerSlice } from "../store/dashboardSlice";
+import {
+  usePassengerSlice,
+  useTransactionsSlice,
+  useUsersSlice,
+} from "../store/dashboardSlice";
 
 export const useGetPassengers = (onMount = true) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -33,4 +37,55 @@ export const useGetPassengers = (onMount = true) => {
   }, []);
 
   return { get, passengers, info, users, loading, err };
+};
+
+export const useGetUsers = (onMount = true) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [err, setErr] = useState<boolean>(false);
+  const { setUsers, users } = useUsersSlice();
+  const getUsers = async () => {
+    try {
+      setLoading(true);
+      const resp = await api.get("/api/dashboard/users");
+      setUsers(resp.data);
+      setErr(false);
+    } catch (error) {
+      setErr(true);
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (onMount) getUsers();
+  }, []);
+
+  return { loading, err, getUsers, users };
+};
+
+export const useGetTransactions = (onMount = true) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [err, setErr] = useState<boolean>(false);
+  const { setTransactions, transactions } = useTransactionsSlice();
+
+  const getTransactions = async () => {
+    try {
+      setLoading(true);
+      const resp = await api.get("/api/dashboard/transactions");
+      setTransactions(resp.data);
+      setErr(false);
+    } catch (error) {
+      setErr(true);
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (onMount) getTransactions();
+  }, []);
+
+  return { loading, err, getTransactions, transactions };
 };

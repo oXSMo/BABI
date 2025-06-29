@@ -15,7 +15,7 @@ function UserManage() {
         </Link>
       </aside>
 
-      <article className="w-full Border p-4 min-h-full overflow-hidden">
+      <article className="w-full Border grid grid-rows-[auto_auto_1fr] p-4 min-h-full overflow-hidden">
         <h1 className="text-3xl font-bold">User List</h1>
         <h2 className="text-base mt-1.5 text-gray-400">
           Manage all users in the system (Clients,Workers,Admins).

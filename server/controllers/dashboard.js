@@ -146,3 +146,29 @@ const Last6Months = () => {
 
   return months.reverse();
 };
+
+export const getUsers = async (req, res) => {
+  try {
+    const users = await User.find({})
+      .select("-password -__v -OTP")
+      .sort({ createdAt: -1 });
+    res.status(201).json(users);
+  } catch (error) {
+    res.status(401).json(error);
+  }
+};
+
+export const useTransaction = async (req, res) => {
+  try {
+    const transactions = await Transaction.find({})
+      .populate([
+        { path: "worker", select: "email fullName  phoneNumber" },
+        { path: "client", select: "email fullName  phoneNumber" },
+      ])
+      .select("-__v -updatedAt")
+      .sort({ createdAt: -1 });
+    res.status(201).json(transactions);
+  } catch (error) {
+    res.status(401).json(error);
+  }
+};

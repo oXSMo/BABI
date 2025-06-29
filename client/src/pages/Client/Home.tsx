@@ -1,5 +1,4 @@
 import {
-  MdAutorenew,
   MdHistory,
   MdOutlineFileDownload,
   MdQrCode,
@@ -11,6 +10,7 @@ import { profileSlice } from "../../store/signSlice";
 import QRCode from "react-qr-code";
 import { useDownloadPng } from "../../utils/hooks";
 import { useState } from "react";
+import { FaUserEdit } from "react-icons/fa";
 
 function Home() {
   const { profile } = profileSlice();
@@ -62,10 +62,13 @@ function Home() {
             <MdHistory className="text-xl" />{" "}
             <p className="line-clamp-1">View Transaction History</p>
           </Link>
-          <button className="button w-full py-2 !mt-3 rounded-md bg-sec text-white   flex justify-center items-center gap-4">
-            <MdAutorenew className="text-xl" />{" "}
-            <p className="line-clamp-1">View Transaction History</p>
-          </button>
+          <Link
+            to="/profile"
+            className="button w-full py-2 !mt-3 rounded-md bg-sec text-white   flex justify-center items-center gap-4"
+          >
+            <FaUserEdit className="text-xl" />{" "}
+            <p className="line-clamp-1">Update Profile</p>
+          </Link>
 
           {!localStorage.getItem("auth") && (
             <h1 className="">Login to sync real data</h1>
