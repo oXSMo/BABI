@@ -3,7 +3,8 @@
 import { MdPowerSettingsNew, MdQrCodeScanner } from "react-icons/md";
 import { Html5Qrcode, Html5QrcodeScanner } from "html5-qrcode";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function StartScan({ handler }: any) {
   const [result, setResult] = useState<string>("");
@@ -12,11 +13,13 @@ function StartScan({ handler }: any) {
   const html5QrcodeRef = useRef<Html5Qrcode | null>(null);
   const [mount, setMount] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const StartScanner = () => {
     var scanner = new Html5Qrcode("reader");
     html5QrcodeRef.current = scanner;
-    scanner
+
+    html5QrcodeRef.current
       .start(
         { facingMode: "environment" }, // Prefer the rear camera
         {
@@ -43,6 +46,9 @@ function StartScan({ handler }: any) {
   };
 
   const StopScanner = () => {
+    console.log(html5QrcodeRef.current);
+
+    if (!html5QrcodeRef.current) return;
     if (!isScanning) return;
 
     html5QrcodeRef.current
@@ -59,10 +65,11 @@ function StartScan({ handler }: any) {
 
   const onScanSuccess = (result) => {
     StopScanner();
-    handler(result);
+    handler(result, html5QrcodeRef, setIsScanning);
   };
 
   const onScanFailure = (err) => {
+    StopScanner();
     console.log(err);
   };
 
@@ -91,7 +98,7 @@ function StartScan({ handler }: any) {
             className=" bg-[#DBE7F0] grid place-content-center rounded-md border-2 border-gray-300 border-dotted h-[352px] !overflow-hidden w-[280px] mx-auto my-4"
           ></div>
 
-          {!isScanning && (
+          {!html5QrcodeRef?.current?.isScanning && (
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
               {errorMessage && (
                 <h1 className="text-red-600 opacity-60 mt-3 text-center text-xs mb-4">

@@ -23,11 +23,13 @@ export const RedeemScanner = () => {
   const navigate = useNavigate();
   return (
     <StartScan
-      handler={(result: any) => {
+      handler={(result: any, html5QrcodeRef: any, setIsScanning: any) => {
         try {
+          html5QrcodeRef.current.stop();
+          setIsScanning(false);
           createTransaction(result, -40);
           toast.success("Ticket Redeemed Successfuly");
-          navigate("/worker")
+          navigate("/worker");
         } catch (error) {
           toast.error("Somthing Went Wrong");
         }

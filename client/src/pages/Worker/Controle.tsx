@@ -25,7 +25,9 @@ export const ControleScanner = () => {
 
   return (
     <StartScan
-      handler={(result: any) => {
+      handler={(result: any, e:any, set:any) => {
+        e.current.stop();
+        set(false);
         navigate(result);
       }}
     />
